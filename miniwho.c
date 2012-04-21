@@ -5,6 +5,9 @@ struct utmpx *utmpp;
 struct utmpx *getutent();
 
 int main(){
-    printf("sanity check\n");
+    utmpp = getutxent();
+    while ((utmpp = getutxent())!= (struct utmp *) NULL) {
+        printf("%s\n", utmpp->ut_user);
+    }
     return 0;
 }
