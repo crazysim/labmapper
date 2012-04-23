@@ -3,17 +3,18 @@
   %head
     %title= "CSIL Pollr"
     %link{:rel => "stylesheet", :type => "text/css", :href => "css/app.css"}
+    %script{:src => "./js/jquery-1.7.2.min.js"}
+    %script{:src => "./js/lib/ember-0.9.7.1.min.js"}
   %body
     #status_box
     #header
       %h1= "CSIL @ UCSB"
     #hosts
+    %script(type='text/x-handlebars')
       %ul
         %li cartman: 
         %li calvin:
     #footer
       %p.fleft
         %a{:href => "https://github.com/tjeezy/csilwho", :title => "View source on github"}= "View source on github"
-    %script{:src => "./js/jquery-1.7.2.min.js"}
-    %script{:src => "./js/lib/ember-0.9.7.1.min.js"}
     %script{:src => "./js/app.js"}
