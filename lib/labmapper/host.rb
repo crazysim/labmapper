@@ -1,7 +1,7 @@
 module Labmapper
   class Host
 
-    attr_accessor :name, :user, :nossh, :uptime
+    attr_accessor :name, :user, :nossh, :uptime, :realname
     @@suffix = '.cs.ucsb.edu' # TODO grab from labrc
     @@invalid_users = ['(unknown)', 'root'] # TODO fix
     # build out ssh options
@@ -13,7 +13,7 @@ module Labmapper
     def initialize(name, key='~/.ssh/id_rsa.pub')
       @name = name
       @nossh = false
-      @user = @uptime = nil
+      @user = @uptime = @realname = nil
       @key = key
     end
 
@@ -32,7 +32,10 @@ module Labmapper
         whos.each do |who|
           user, tty, date, time, ip = who.split
           if ip.nil? || ip.size < 6 # TODO no magic number please
-            @user = user unless @@invalid_users.index(user)
+            unless @@invalid_users.index(user)
+              @user = user 
+              @realname = ssh(["/usr/bin/getent passwd #{@user} | cut -f 5 -d: | cut -f 1 -d,"])
+            end
           end
         end
       end
@@ -41,11 +44,11 @@ module Labmapper
 
     def debug
       # TODO let's use log4r
-      puts "#{@name}: #{@user}"
+      puts "#{@name}: #{@user} #{@realname}"
     end
 
     def to_json(*a)
-      {name: @name, nossh: @nossh, user: @user}.to_json(*a)
+      {name: @name, nossh: @nossh, user: @user, realname: @realname}.to_json(*a)
     end
 
     private

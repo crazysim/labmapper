@@ -24,7 +24,8 @@ module Labmapper
           output[:hosts][host.name] = {
             user: host.user,
             nossh: host.nossh,
-            uptime: host.uptime
+            uptime: host.uptime,
+            realname: host.realname
           }
         end
         f.puts output.to_json
