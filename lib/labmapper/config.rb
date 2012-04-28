@@ -84,6 +84,7 @@ module Labmapper
         haml += "? ' nossh' : (hosts[n]['user'] "
         haml += "? ' occupied' : ' available')) : nil}\n"
         haml += "- uptime = lambda {|n| hosts[n] && hosts[n]['uptime']}\n"
+        haml += "- realname = lambda {|n| hosts[n] && hosts[n]['realname']}\n"
         haml += "%table{cellpadding: 0}\n"
         @lines.each do |line|
           m = line.match(/^;(#{@valids}*)\|?(\..*)*$/)
@@ -100,6 +101,8 @@ module Labmapper
                 haml += "#{@tokens[t][:dir]}\"}\n"
                 haml += "      %span{class: \"uptime hidden\"}= "
                 haml += "\"\#{uptime.call('#{@tokens[t][:id]}')}\"\n"
+                haml += "      %span{class: \"realname hidden\"}= "
+                haml += "\"\#{realname.call('#{@tokens[t][:id]}')}\"\n"
               else
                 haml += "    %td\n"
               end

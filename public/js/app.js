@@ -7,6 +7,10 @@ $(function() {
   $(".up.machine").each(function() {
     $(this).find("img").replaceWith("<img src=\"img/flipped-machine.png\" width=\"40\" alt=\"" + $(this)[0].id + "\" />");
   });
+  listing = {};
+  $.getJSON("hosts.json", function(data){
+    listing = data;
+  });
   $("table").bind("mousemove", function(e) {
     $target = $(e.target);
     if ($target.attr("src") !== undefined) {
@@ -15,7 +19,7 @@ $(function() {
     $name = $target[0].id;
     $(".hovered").removeClass("hovered");
     if ($target.hasClass("machine") && $name != "") {
-      $status_box.html("<p>" + $target[0].id + "</p><p>" + $target.find(".uptime").html() + "</p>");
+      $status_box.html("<p>" + $target[0].id + "</p><p>" + $target.find(".uptime").html() + "</p>" + "<p>" + listing['hosts'][$name].realname + "</p>");
       $status_box.css({
         "top": e.pageY + 10,
         "left": e.pageX + 10
