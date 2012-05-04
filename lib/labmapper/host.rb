@@ -44,7 +44,11 @@ module Labmapper
 
     def debug
       # TODO let's use log4r
-      puts "#{@name}: #{@user} #{@realname}"
+      if (@user)
+        puts "#{@name}: #{@user}, #{@realname}"
+      else
+        puts "#{@name}:"
+      end
     end
 
     def to_json(*a)
