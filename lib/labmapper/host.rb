@@ -14,6 +14,7 @@ module Labmapper
       @name = name
       @nossh = false
       @user = @uptime = @realname = nil
+      @vsim = nil
       @key = key
     end
 
@@ -37,6 +38,7 @@ module Labmapper
               @realname = ssh(["/usr/bin/getent passwd #{@user} | cut -f 5 -d: | cut -f 1 -d,"])
             end
           end
+          @vsim = ssh(["file /local/altera11.1sp2/modelsim_ase/linux/vsim"])
         end
       end
       debug # TODO if $DEBUG ?
@@ -49,6 +51,7 @@ module Labmapper
       else
         puts "#{@name}:"
       end
+      puts "#{@vsim}"
     end
 
     def to_json(*a)
