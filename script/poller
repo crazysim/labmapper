@@ -2,8 +2,29 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/../environment')
 
-opts = {}
-opts[:in_threads] = 0 if ARGV[0] == 'serial'
+require 'optparse'
+
+opts = {in_threads:50}
+
+OptionParser.new do |options|
+  options.banner = "Usage #{$0} [options]"
+
+  options.on("-s", "Run serially") do 
+    opts[:in_threads] = 0
+  end
+
+  options.on_tail("-h", "--help", "Show this message") do
+    puts options
+    exit
+  end
+end.parse!
+
+if (ARGV[0] == 'serial')
+  opts[:in_threads] = 0
+  ARGV.shift
+end
+
+file = ARGV[0] ? ARGV[0] : '../socket.json'
 
 Labmapper::HostPoller.poll(opts)
-Labmapper::HostPoller.serialize('../socket.json')
+Labmapper::HostPoller.serialize(file)

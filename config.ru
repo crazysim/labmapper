@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), 'bin/web')
+require File.join(File.dirname(__FILE__), 'script/web')
 
 set :run, false
 set :environment, :production
