@@ -47,7 +47,7 @@ module Labmapper
       if (@user)
         puts "#{@name}: #{@user}, #{@realname}"
       else
-        puts "#{@name}:"
+        # puts "#{@name}:"
       end
     end
 
