@@ -45,7 +45,7 @@ module Labmapper
     def debug
       # TODO let's use log4r
       if (@user)
-        puts "#{@realname} (#{@user}) @ #{@name}"
+        puts "#{@realname}"
       else
         # puts "#{@name}:"
       end
